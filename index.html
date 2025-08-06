@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coming Soon - Next Level Experience</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="antialiased">
+    <div id="scene-container"></div>
+
+    <div
+      class="min-h-screen flex flex-col items-center justify-center p-4"
+      style="perspective: 1000px"
+    >
+      <div class="mx-auto text-center">
+        <h1>Coming Soon</h1>
+        <p
+          class="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-12"
+        >
+          I’m crafting a front-end experience you won’t forget. Stay tuned to
+          explore creativity, code, and passion!
+        </p>
+
+        <div
+          id="countdown"
+          class="grid grid-cols-4 gap-2 sm:gap-4 md:gap-8 max-w-2xl mx-auto mb-8 sm:mb-12"
+        >
+          <div
+            class="timer-box p-2 sm:p-4 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10"
+          >
+            <div id="days" class="timer-value text-3xl sm:text-4xl md:text-6xl">
+              00
+            </div>
+            <div class="timer-label text-xs sm:text-sm md:text-base">Days</div>
+          </div>
+          <div
+            class="timer-box p-2 sm:p-4 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10"
+          >
+            <div
+              id="hours"
+              class="timer-value text-3xl sm:text-4xl md:text-6xl"
+            >
+              00
+            </div>
+            <div class="timer-label text-xs sm:text-sm md:text-base">Hours</div>
+          </div>
+          <div
+            class="timer-box p-2 sm:p-4 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10"
+          >
+            <div
+              id="minutes"
+              class="timer-value text-3xl sm:text-4xl md:text-6xl"
+            >
+              00
+            </div>
+            <div class="timer-label text-xs sm:text-sm md:text-base">
+              Minutes
+            </div>
+          </div>
+          <div
+            class="timer-box p-2 sm:p-4 rounded-lg bg-black/20 backdrop-blur-sm border border-white/10"
+          >
+            <div
+              id="seconds"
+              class="timer-value text-3xl sm:text-4xl md:text-6xl"
+            >
+              00
+            </div>
+            <div class="timer-label text-xs sm:text-sm md:text-base">
+              Seconds
+            </div>
+          </div>
+        </div>
+
+        <div id="form-container" class="mb-12">
+          <form
+            id="subscribe-form"
+            class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto"
+          >
+            <input
+              id="email-input"
+              type="email"
+              placeholder="Enter your email for launch updates"
+              class="w-full sm:w-auto flex-grow bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
+            />
+            <button
+              type="submit"
+              class="w-full sm:w-auto bg-white text-black font-bold rounded-lg px-6 py-3 hover:bg-gray-300 transform hover:scale-105 transition-all duration-300"
+            >
+              Notify Me
+            </button>
+          </form>
+        </div>
+
+        <div
+          id="success-message"
+          class="text-lg text-green-400 font-semibold mb-12"
+        >
+          Thank you! We will notify you at launch.
+        </div>
+
+        <div class="flex justify-center items-center gap-6 text-gray-400">
+          <a
+            href="https://www.linkedin.com/in/hamza-babar-7974211b8/"
+            class="social-icon"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              ></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="https://github.com/Hamza4467-dev/" class="social-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="fixed bottom-0 left-0 w-full text-center p-4 text-gray-500 text-sm z-10"
+    >
+      Built with ❤️ by Hamza Babar | Front-End Developer
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <script
+      async
+      src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"
+    ></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+          "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
