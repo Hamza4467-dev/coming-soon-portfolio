@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cosmic Dust</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Basic styles for the page */
+      body {
+        margin: 0;
+        overflow: hidden; /* Hide scrollbars */
+        background-color: #0a0a0a; /* A very dark background for a space feel */
+        font-family: "Inter", sans-serif;
+        color: #e0e0e0;
+      }
+
+      /* Styles for the canvas element */
+      #cosmicCanvas {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1; /* Place canvas behind other content */
+      }
+
+      /* Centered content container */
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* Title styling */
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.1),
+          0 0 20px rgba(255, 255, 255, 0.1);
+      }
+
+      /* Subtitle styling */
+      p {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        max-width: 600px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The canvas where the animation will be drawn -->
+    <canvas id="cosmicCanvas"></canvas>
+
+    <!-- Optional content to show it works as a background -->
+    <div class="content">
+      <h1>Cosmic Dust</h1>
+      <p>Move your mouse around to interact with the particles.</p>
+    </div>
+    <script>
+      // --- Canvas Setup ---
+      const canvas = document.getElementById("cosmicCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set canvas to fill the entire window
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // --- Global Variables ---
+      let particlesArray;
+
+      // --- Mouse Interaction ---
+      const mouse = {
+        x: null,
+        y: null,
+        radius: (canvas.height / 110) * (canvas.width / 110),
+      };
+
+      window.addEventListener("mousemove", (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+      });
+
+      window.addEventListener("mouseout", () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+      });
+
+      // --- ADDED: Handle window resizing ---
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        mouse.radius = (canvas.height / 110) * (canvas.width / 110);
+        init(); // Re-initialize particles for new canvas size
+      });
+
+      // --- Particle Class ---
+      class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+          this.x = x;
+          this.y = y;
+          this.directionX = directionX;
+          this.directionY = directionY;
+          this.size = size;
+          this.color = color;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+          ctx.fillStyle = "rgba(229, 231, 235, 0.8)";
+          ctx.fill();
+        }
+
+        update() {
+          if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+          }
+          if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+          }
+
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < mouse.radius + this.size) {
+            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+              this.x += 5;
+            }
+            if (mouse.x > this.x && this.x > this.size * 10) {
+              this.x -= 5;
+            }
+            if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+              this.y += 5;
+            }
+            if (mouse.y > this.y && this.y > this.size * 10) {
+              this.y -= 5;
+            }
+          }
+
+          this.x += this.directionX;
+          this.y += this.directionY;
+
+          this.draw();
+        }
+      }
+
+      // --- ADDED: Initialization Function ---
+      // This function creates all the particles.
+      function init() {
+        particlesArray = [];
+        // Adjust this number to change particle density
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+          let size = Math.random() * 3 + 1;
+          let x = Math.random() * (innerWidth - size * 2 - size * 2) + size * 2;
+          let y =
+            Math.random() * (innerHeight - size * 2 - size * 2) + size * 2;
+          let directionX = Math.random() * 0.4 - 0.2;
+          let directionY = Math.random() * 0.4 - 0.2;
+          let color = "#E5E7EB"; // Not used in your draw(), but good practice
+
+          particlesArray.push(
+            new Particle(x, y, directionX, directionY, size, color)
+          );
+        }
+      }
+
+      // --- ADDED: Animation Loop ---
+      // This function handles the animation for each frame.
+      function animate() {
+        requestAnimationFrame(animate); // Create a loop
+        ctx.clearRect(0, 0, innerWidth, innerHeight); // Clear the canvas
+
+        for (let i = 0; i < particlesArray.length; i++) {
+          particlesArray[i].update(); // Update each particle
+        }
+      }
+
+      // --- ADDED: Start the animation ---
+      init();
+      animate();
+    </script>
+  </body>
+</html>
